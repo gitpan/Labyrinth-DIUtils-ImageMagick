@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth::DIUtils::ImageMagick",
-    "version": "5.04",
+    "version": "5.05",
     "abstract": "Digital Image utilities driver with ImageMagick for Labyrinth Framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -23,18 +23,22 @@
     "prereqs" : {
         "test" : {
             "requires": {
+                "File::Copy": "0",
+                "File::Path": "0",
+                "IO::File": "0",
                 "Test::More": "0.70"
             },
             "recommends": {
+                "Test::CPAN::Meta": "0",
+                "Test::CPAN::Meta::JSON": "0",
                 "Test::Pod": "1.00",
-                "Test::Pod::Coverage": "0.08",
-                "Test::CPAN::Meta": "0.13",
-                "Test::JSON::Meta": "0.08"
+                "Test::Pod::Coverage": "0.08"
             }
         },
         "runtime" : {
             "requires" : {
-              "Image::Magick": "0"
+                "perl": "5.006",
+                "Image::Magick": "0"
             }
         }
     },
@@ -42,7 +46,7 @@
     "provides": {
         "Labyrinth::DIUtils::ImageMagick": {
             "file": "lib/Labyrinth/DIUtils/ImageMagick.pm",
-            "version": "5.04"
+            "version": "5.05"
         }
     },
     "no_index": {
@@ -50,7 +54,7 @@
     },
 
     "resources": {
-        "license": "http://dev.perl.org/licenses/",
+        "license": "http://www.perlfoundation.org/artistic_license_2_0",
         "bugtracker": { "web": "http://rt.cpan.org/Public/Dist/Display.html?Name=Labyrinth-DIUtils-ImageMagick" },
         "repository": {
             "url": "git://github.com/barbie/labyrinth-diutils-imdriver.git",
