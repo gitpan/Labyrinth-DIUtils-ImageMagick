@@ -3,7 +3,7 @@ package Labyrinth::DIUtils::ImageMagick;
 use warnings;
 use strict;
 
-our $VERSION = '5.05';
+our $VERSION = '5.06';
 
 =head1 NAME
 
@@ -168,7 +168,7 @@ Miss Barbell Productions, L<http://www.missbarbell.co.uk/>
 
 =head1 COPYRIGHT & LICENSE
 
-  Copyright (C) 2002-2013 Barbie for Miss Barbell Productions
+  Copyright (C) 2002-2014 Barbie for Miss Barbell Productions
   All Rights Reserved.
 
   This module is free software; you can redistribute it and/or
