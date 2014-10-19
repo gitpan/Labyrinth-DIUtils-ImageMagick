@@ -3,7 +3,7 @@ package Labyrinth::DIUtils::ImageMagick;
 use warnings;
 use strict;
 
-our $VERSION = '5.06';
+our $VERSION = '5.07';
 
 =head1 NAME
 
@@ -89,14 +89,13 @@ the image file the number of degrees specified.
 
 sub rotate {
     my $self = shift;
-    my $degs = shift || return undef;
+    my $degs = shift || return;
 
     return  unless($self->{image} && $self->{object});
 
     my $i = $self->{object};
     $i->Rotate(degrees => $degs);
-    my $c = $i->Write($self->{image});
-    die "write image error: [$self->{image}] $c\n"   if $c;
+    $self->_writeimage($self->{image});
 
     return 1;
 }
@@ -113,6 +112,7 @@ sub reduce {
     my $self = shift;
     my $xmax = shift || 100;
     my $ymax = shift || 100;
+    my $qual = shift || 0;
 
     return  unless($self->{image} && $self->{object});
 
@@ -120,9 +120,11 @@ sub reduce {
     my ($width,$height) = $i->Get('columns', 'rows');
     return  unless($width > $xmax || $height > $ymax);
 
+    # set the quality of the image, if specified
+    $i->Set( quality => $qual ) if($qual);
+
     $i->Scale(geometry => "${xmax}x${ymax}");
-    my $c = $i->Write($self->{image});
-    die "write image error: [$self->{image}] $c\n"   if $c;
+    $self->_writeimage($self->{image});
 
     return 1;
 }
@@ -142,14 +144,24 @@ sub thumb {
     my $file = shift || return;
     my $smax = shift || 100;
 
+    return  unless($self->{object});
+
+    my $i = $self->{object};
+    $i->Scale(geometry => "${smax}x${smax}");
+    $self->_writeimage($file);
+
+    return 1;
+}
+
+sub _writeimage {
+    my $self = shift;
+    my $file = shift;
+
     my $i = $self->{object};
     return  unless($i);
 
-    $i->Scale(geometry => "${smax}x${smax}");
     my $c = $i->Write($file);
     die "write image error: [$self->{image}] $c\n"   if $c;
-
-    return 1;
 }
 
 1;
@@ -158,8 +170,9 @@ __END__
 
 =head1 SEE ALSO
 
-  Image::Magick
-  Labyrinth
+L<Image::Magick>,
+L<Labyrinth>,
+L<Labyrinth::DIUtils::GD>
 
 =head1 AUTHOR
 
